@@ -1,0 +1,96 @@
+@import '../../components/ef-button/ef-button.css';
+
+.ef-flying-menu-hamburger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+/*     background-color: #fff; */
+
+/*     opacity: 0.5; */
+}
+/*
+.ef-flying-menu-hamburger:hover, .ef-flying-menu-hamburger:active {
+    opacity: 1;
+}
+*/
+
+
+/* Thanks to Erik Terwan ~ https://codepen.io/erikterwan/pen/EVzeRP */
+.ef-flying-menu-hamburger .menu-toggle {
+    display: block;
+    position: relative;
+
+    z-index: 1;
+
+    -webkit-user-select: none;
+    user-select: none;
+}
+.ef-flying-menu-hamburger .menu-toggle.invisible {
+    display: none;
+}
+
+.ef-flying-menu-hamburger .menu-toggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+
+    cursor: pointer;
+
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+
+    -webkit-touch-callout: none;
+}
+.ef-flying-menu-hamburger .menu-toggle span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+
+    background: #070707;
+    border-radius: 3px;
+
+    z-index: 1;
+
+    transform-origin: 4px 0px;
+
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+.ef-flying-menu-hamburger .menu-toggle span:first-child {
+    transform-origin: 0% 0%;
+}
+
+.ef-flying-menu-hamburger .menu-toggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+}
+
+.ef-flying-menu-hamburger .menu-toggle input:checked ~ span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+}
+
+.ef-flying-menu-hamburger .menu-toggle input:checked ~ span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+.ef-flying-menu-hamburger .menu-toggle input:checked ~ span:nth-last-child(2) {
+    opacity: 1;
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+.ef-flying-menu-buttons {
+    transition: all 0.5s ease;
+}
+
+.ef-flying-menu-buttons.closed {
+    opacity: 0;
+}

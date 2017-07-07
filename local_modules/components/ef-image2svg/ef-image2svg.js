@@ -1,10 +1,9 @@
 'use strict';
 
-var angular = require('angular'),
-    ImageTracer = require('imagetracerjs');
+var ImageTracer = require('imagetracerjs');
+//use angular.element(callback)
 
-
-var EfImageController = function($scope, $element, $attrs, $timeout) {
+var EfImage2SvgController = function($scope, $element, $attrs, $timeout) {
     var ctrl = this,
         $image = $element.find('img'),
 
@@ -55,11 +54,11 @@ var EfImageController = function($scope, $element, $attrs, $timeout) {
 
 }
 
-EfImageController.$inject = ['$scope', '$element', '$attrs', '$timeout'];
+EfImage2SvgController.$inject = ['$scope', '$element', '$attrs', '$timeout'];
 
-var imageController = {
+var EfImage2Svg = {
     templateUrl: './ef-image2svg.html',
-    controller: EfImageController,
+    controller: EfImage2SvgController,
     bindings: {
         src: '@',
         animate: '@',
@@ -67,4 +66,4 @@ var imageController = {
     }
 };
 
-module.exports = imageController;
+module.exports = EfImage2Svg;

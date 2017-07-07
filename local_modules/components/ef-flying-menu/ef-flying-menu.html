@@ -1,0 +1,15 @@
+<div class="ef-flying-menu-hamburger">
+    <div class="menu-toggle invisible" ng-click="$ctrl.toggleMenu()">
+        <input type="checkbox" checked="true" />
+        <span></span>
+        <span></span>
+        <span></span>
+        <div></div>
+    </div>
+</div>
+
+<div class="ef-flying-menu-buttons">
+    <ef-button class="visible" text="Learn more" icon="assets/ic_info_black_24px.svg" is-open="$ctrl.isOpen" on-click="$ctrl.learnMore()"></ef-button>
+    <ef-button class="visible" text="Get in touch" icon="assets/ic_question_answer_black_24px.svg" is-open="$ctrl.isOpen" on-click="$ctrl.getInTouch()"></ef-button>
+    <ef-button class="visible" text="Download CV" icon="assets/ic_get_app_black_24px.svg" is-open="$ctrl.isOpen" on-click="$ctrl.downloadCV()"></ef-button>
+</div>

@@ -12,5 +12,5 @@ require('angular-ui-router');
 require('views/home');
 
 // init
-angular.module('LivePortfolio', ['ngMaterial', 'ngMessages', 'ui.router', 'homeView'])
+angular.module('LivePortfolio', ['ngMaterial', 'ngMessages', 'ui.router', 'home-view'])
     .config(LivePortfolioConfig);

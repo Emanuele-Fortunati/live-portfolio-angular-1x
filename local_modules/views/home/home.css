@@ -1,0 +1,8 @@
+@import '../../components/ef-flying-menu/ef-flying-menu.css';
+@import '../../components/ef-charts/ef-charts.css';
+@import '../../components/ef-insigths-highlighter/ef-insigths-highlighter.css';
+
+
+.insigths.open {
+    max-height: 250px;
+}

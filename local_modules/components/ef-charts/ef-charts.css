@@ -1,0 +1,5 @@
+@import '../../../node_modules/nvd3/build/nv.d3.css';
+
+.ef-charts-tooltip {
+    max-width: 350px;
+}
