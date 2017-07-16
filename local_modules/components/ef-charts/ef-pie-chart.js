@@ -4,6 +4,7 @@ var angular = require('angular');
 
 var EfPieChartController = function($scope, $element, $attrs, $timeout) {
     var ctrl = this,
+        height = 250,
         animationDuration = 500;
 
     ctrl.api = undefined;
@@ -13,7 +14,7 @@ var EfPieChartController = function($scope, $element, $attrs, $timeout) {
         ctrl.options = {
             'chart': {
                 type: 'pieChart',
-                "height": 500,
+                height: ctrl.height || height,
                 x: function(d){return d.key;},
                 y: function(d){return d.y;},
                 showLabels: true,
@@ -25,6 +26,9 @@ var EfPieChartController = function($scope, $element, $attrs, $timeout) {
                 labelSunbeamLayout: false,
                 labelsOutside: true,
                 showLegend: false,
+                color: function(d, i) {
+                    return d.forceColor;
+                },
                 tooltip: {
                     contentGenerator: function(d, i) {
 
@@ -68,7 +72,8 @@ var EfPieChartController = function($scope, $element, $attrs, $timeout) {
             ctrl.data.push({
                 key: ctrl.labels[i],
                 y: 0,
-                insights: ctrl.insights[i]
+                insights: ctrl.insights[i],
+                forceColor: ctrl.colors[i]
             });
             invertedValues.push(ctrl.values[i]);
         }
@@ -109,7 +114,9 @@ var EfPieChart = {
         type: '@',
         values: '<',
         labels: '<',
-        insights: '<'
+        insights: '<',
+        colors: '<',
+        height: '<'
     }
 };
 

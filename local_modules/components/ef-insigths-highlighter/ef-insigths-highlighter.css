@@ -25,8 +25,8 @@
 }
 
 .highlighter {
-    text-decoration: underline;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #ffd426;
+    font-size: larger;
     cursor: pointer;
 }
 .insigths {
@@ -34,8 +34,15 @@
     max-height: 0px;
     overflow: hidden;
 
-    transition: all 0.3s ease;
+    transition: all 1.5s ease;
 }
 .insigths.open {
-    max-height: 25px;
+    max-height: 1000px;
+}
+
+@media screen and (min-width: 768px) {
+	.insigths md-list-item {
+		width: 50%;
+		float: left;
+	}
 }

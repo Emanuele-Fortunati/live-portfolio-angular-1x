@@ -51,7 +51,7 @@
     margin-bottom: 5px;
     position: relative;
 
-    background: #070707;
+    background: #b9bbbc;
     border-radius: 3px;
 
     z-index: 1;
@@ -74,7 +74,7 @@
 .ef-flying-menu-hamburger .menu-toggle input:checked ~ span {
     opacity: 1;
     transform: rotate(45deg) translate(-2px, -1px);
-    background: #232323;
+    background: #b9bbbc;
 }
 
 .ef-flying-menu-hamburger .menu-toggle input:checked ~ span:nth-last-child(3) {
@@ -88,9 +88,21 @@
 }
 
 .ef-flying-menu-buttons {
-    transition: all 0.5s ease;
+    transition: all 1s ease;
 }
 
 .ef-flying-menu-buttons.closed {
     opacity: 0;
+}
+
+.ef-flying-menu-hamburger .static-menu-buttons {
+    transition: all 1s ease;
+    opacity: 0;
+}
+.ef-flying-menu-hamburger .static-menu-buttons.visible {
+    opacity: 1;
+}
+
+.ef-flying-menu-hamburger .static-menu-buttons ef-button, .ef-flying-menu-hamburger .static-menu-buttons ef-button .ef-button, .ef-flying-menu-hamburger .static-menu-buttons ef-button .ef-button .md-button {
+    display: block;
 }

@@ -4,6 +4,7 @@ var angular = require('angular'),
     jQuery = require('jquery');
 
 // @TODO make it up without jQuery
+// It should be possible with angular animations
 
 // Inspired by the work of Weepy
 // https://github.com/weepy/jquery.path
@@ -73,8 +74,8 @@ jQuery.fn.flyTo = function(destination, topInc, leftInc, speed, delay, callback)
         newPos = $destination.position(),
         coord = {
             start: {
-                x: $this.position().left,
-                y: $this.position().top,
+                x: $this.offset().left,
+                y: $this.offset().top,
                 angle: -20,
                 length: 0.3
             },
@@ -88,21 +89,25 @@ jQuery.fn.flyTo = function(destination, topInc, leftInc, speed, delay, callback)
 
 
     setTimeout(function() {
+        $this.find('div').removeClass('open');
+        var $new = $this.clone();
+        $this.remove();
 
-        $this.css({
+        $new.css({
             position: 'absolute',
             left: coord.start.x + 'px',
             top: coord.start.y + 'px'
-        }).delay(delay).animate({
+        }).appendTo(document.body).delay(delay).animate({
                 path : new bezier(coord)
             }, {
             duration: speed,
 
             complete: function() {
-                $this.css('position', 'fixed');
-                callback($this, $destination);
+                setTimeout(function() {
+                    $new.remove();
+                }, 250);
             }
-        });
+        })
 
     }, 10);
 
@@ -110,83 +115,110 @@ jQuery.fn.flyTo = function(destination, topInc, leftInc, speed, delay, callback)
 };
 
 
-var EfFlyingButtonController = function($scope, $element, $attrs, $timeout) {
+
+var DialogController = function($scope, $mdDialog) {
+    var ctrl = this;
+
+    ctrl.cancel = function() {
+        $mdDialog.hide();
+    };
+}
+DialogController.$inject = ['$scope', '$mdDialog'];
+
+var EfFlyingButtonController = function($scope, $element, $attrs, $timeout, $mdDialog, $document) {
     var ctrl = this,
 
-        destination = $element.find('div')[0], // @TODO
+        destination = $element.find('div')[0], // @TODO - dont trust dom position!
         speed = 250,
 
         $menuToggle = angular.element($element.find('div').children()[0]),
 
         $buttonContainer = $element.find('ef-button').parent();
 
-    ctrl.isOpen = true;
+    ctrl.buttonsVisible = false;
+
+    angular.element(function() {
+        ctrl.isOpen = ctrl.isOpen;
+    });
+
 
     ctrl.toggleMenu = function() {
-        if($buttonContainer.hasClass('closed')) {
-            $buttonContainer.removeClass('closed');
-        } else {
-            $buttonContainer.addClass('closed');
-        }
+        ctrl.buttonsVisible = !ctrl.buttonsVisible;
     };
 
-    ctrl.learnMore = function() {
-        if(ctrl.isOpen) {
-            // @TODO: find elements by class or id, it isn't good to trust dom position
-            var delay = 0;
-            for(var i = 0; i < 3; i++) {
+    ctrl.learnMore = function() {        
+        var delay = 0,
+            $buttons = $element.find('ef-button');
 
-                var source = $element.find('ef-button')[i];
+        for(var i = 0; i < $buttons.length; i++) {
+            var $source = $buttons[i];
 
-                jQuery(source).flyTo(destination,  i * 35, 30, speed, delay, function($source, $destination) {
-                    $timeout(function() {
-                        ctrl.isOpen = false;
-                    }, 100);
-                });
-
+            if(angular.element($source).hasClass('visible')) {
+                jQuery($source).flyTo(destination,  0, 0, speed, delay);
                 delay += 80;
-
             }
 
-            // show hamburger
-            $menuToggle.removeClass('invisible');
-
-            // toggle menu (close it)
-            $timeout(function() {
-                ctrl.toggleMenu();
-
-                $menuToggle.find('input').attr('checked', false);
-            }, delay + 500);
-
         }
-// maybe learn more becomes back to homepage(?)
-        // load learn more
+
+        // show hamburger
+        $menuToggle.removeClass('invisible');
+
+        // toggle menu (close it)
+        $timeout(function() {
+            $menuToggle.find('input').attr('checked', false);
+            ctrl.didFly = true;
+
+            ctrl.scrollToSection(ctrl.scrollTo);
+
+        }, delay + 500);
+
     }
 
     ctrl.downloadCV = function() {
-        console.log("2");
+        window.open('http://themissingtile.com/emanuele-fortunati-front-end-developer-cv.pdf');
     }
 
-    ctrl.getInTouch = function() {
-        console.log("3");
+    ctrl.getInTouch = function(ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            controllerAs: 'dialog',
+            bindToController: true,
+            templateUrl: 'ef-contact-dialog.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        });        
     }
 
-/*
-    $timeout(function() {
+    ctrl.scrollToSection = function(section) {
+        try {
+            $document.scrollToElementAnimated(angular.element(document.getElementsByClassName(section)));
+        } catch(e) {}
+        
+    }
 
-        jQuery($element).animateAppendTo(ctrl.flyTo, 1000, function() {
-            ctrl.iconOnly = true;console.log(ctrl);
-        });
-
-    }, 3000);
-*/
+    // all menus has to behave same way
+    ctrl.$onChanges = function(changes) {
+        if(changes.forceFlying && changes.forceFlying.currentValue === true) {
+            if(!ctrl.didFly) {
+                this.learnMore();
+            }
+        }
+    }
 
 }
 
-EfFlyingButtonController.jQueryinject = ['$scope', '$element', '$attrs'];
+EfFlyingButtonController.$inject = ['$scope', '$element', '$attrs', '$timeout', '$mdDialog', '$document'];
 
 var EfFlyingButton = {
     templateUrl: './ef-flying-menu.html',
-    controller: EfFlyingButtonController};
+    controller: EfFlyingButtonController,
+    bindings: {
+        isOpen: '<',
+        didFly: '=',
+        forceFlying: '<',
+        scrollTo: '@'
+    }
+};
 
 module.exports = EfFlyingButton;

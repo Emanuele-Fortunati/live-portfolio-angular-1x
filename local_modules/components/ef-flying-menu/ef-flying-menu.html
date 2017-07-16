@@ -1,10 +1,16 @@
 <div class="ef-flying-menu-hamburger">
-    <div class="menu-toggle invisible" ng-click="$ctrl.toggleMenu()">
-        <input type="checkbox" checked="true" />
+    <div class="menu-toggle invisible">
+        <input type="checkbox" checked="true"  ng-click="$ctrl.toggleMenu()"/>
         <span></span>
         <span></span>
         <span></span>
-        <div></div>
+        <div class="static-menu-buttons" ng-class="{'visible' : $ctrl.buttonsVisible}">
+            <ef-button text="Expertise" icon="assets/ic_info_black_24px.svg" is-open="false" on-click="$ctrl.scrollToSection($ctrl.scrollTo)"></ef-button>
+            <!-- <ef-button text="Code Samples" icon="assets/ic_question_answer_black_24px.svg" is-open="false" on-click="$ctrl.scrollToSection()"></ef-button> -->
+            <ef-button text="Get in touch" icon="assets/ic_question_answer_black_24px.svg" is-open="false" on-click="$ctrl.getInTouch()"></ef-button>
+            <ef-button text="Tech bits" icon="assets/ic_question_answer_black_24px.svg" is-open="false" on-click="$ctrl.scrollToSection('ef-insigths-highlighter')"></ef-button>
+            <ef-button text="Download CV" icon="assets/ic_get_app_black_24px.svg" is-open="false" on-click="$ctrl.downloadCV()"></ef-button>
+        </div>
     </div>
 </div>
 

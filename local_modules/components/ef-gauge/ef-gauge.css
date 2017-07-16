@@ -1,0 +1,21 @@
+
+.ef-gauge {
+    width: 100%;
+}
+.ef-gauge .chart-first {
+    fill: #FB3033;
+}
+.ef-gauge .chart-second {
+    fill: #F2BA3A;
+}
+.ef-gauge .chart-third {
+    fill: #9FBD35;
+}
+
+.ef-gauge .needle, .ef-gauge .needle-center {
+    fill: #000000;
+}
+.ef-gauge .text {
+    color: "#112864";
+    font-size: 16px;
+}

@@ -1,0 +1,34 @@
+<md-dialog aria-label="{{dialog.title}}">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{dialog.title}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="dialog.cancel()">
+                    <md-icon md-svg-src="assets/clear.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div ng-if="dialog.content == 'info'" class="md-dialog-content">
+                <p>I genuinely love my work, in particular when it comes to <span class="blue-color">innovation</span>. I define myself a <span class="blue-color">"Pioneer into the Unknown"</span> and I take any possible chance to create something revolutionary. Even so, I believe it's easy to get "lost in technology" and therefore I always balance being innovative with being strict on the <span class="blue-color">quality</span> of my code. My aim, in fact, is to provide an excellent <span class="blue-color">user experience</span> by writing clean, easy-to-maintain, scalable code.</p>
+                <p>I specialise in Angular, but I keep an open mind towards any other framework, as it's key for me to be always up-to-date with the latest trend.</p>
+                <p>Besides my technical skills, I have also good <span class="blue-color">team-playing</span> and <span class="blue-color">leadership</span> skills, backed up by a (recent) past as semi-pro football manager. Being a leader, to me, means being out there with the team, engaging with the project and the team members, so that the everybody is just naturally motivated. Leadership for me is being an example of being focussed on <span class="blue-color">the end result</span>.</p>
+            </div>
+
+            <div ng-if="dialog.content == 'contact'" class="md-dialog-content">
+                <ef-contact></ef-contact>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions ng-if="dialog.content == 'info'" layout="row">
+            <md-button ng-click="dialog.openContact()">
+                Get in touch
+            </md-button>
+            <md-button href="http://themissingtile.com/emanuele-fortunati-front-end-developer-cv.pdf" target="_blank">
+                Download CV
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

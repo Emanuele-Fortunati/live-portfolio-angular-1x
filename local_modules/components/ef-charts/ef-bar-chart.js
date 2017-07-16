@@ -17,6 +17,7 @@ var EfBarChartController = function($scope, $element, $attrs, $timeout) {
                 height: ctrl.height || height,
                 x: function(d){return d.label;},
                 y: function(d){return d.value;},
+                groupSpacing: ctrl.groupSpacing || 0.7 ,
                 showControls: false,
                 showValues: false,
                 duration: height,
@@ -29,9 +30,12 @@ var EfBarChartController = function($scope, $element, $attrs, $timeout) {
                 margin: {
                     top: 30,
                     bottom: 30,
-                    left: 150,
+                    left: 160,
                     right: 30
                 },
+                // color: function(d, i) {
+                //     return d.forceColor;
+                // },                
                 tooltip: {
                     contentGenerator: function(d, i) {
 
@@ -83,7 +87,8 @@ var EfBarChart = {
         yDomain: '<',
         values: '<',
         labels: '<',
-        insights: '<'
+        insights: '<',
+        groupSpacing: '<'
     }
 };
 

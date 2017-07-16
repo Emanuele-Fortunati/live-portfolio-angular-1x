@@ -7,10 +7,11 @@ var EfImage2SvgController = function($scope, $element, $attrs, $timeout) {
     var ctrl = this,
         $image = $element.find('img'),
 
-        minColors = 2,
-        maxColors = ctrl.maxColors || 8,
+        minColors = 6,
+        maxColors = 8,
+        step = 1,
 
-        speed = 10,
+        speed = 1,
 
         options = {
             numberofcolors: maxColors,
@@ -34,7 +35,7 @@ var EfImage2SvgController = function($scope, $element, $attrs, $timeout) {
 
         traceCallback = function(timeout) {
 
-            options.numberofcolors++;
+            options.numberofcolors+=step;
             if(ctrl.animate && options.numberofcolors < maxColors) {
                 trace(ctrl.animate? timeout : 0, traceCallback);
             }
@@ -42,15 +43,22 @@ var EfImage2SvgController = function($scope, $element, $attrs, $timeout) {
         };
 
     // init
-    $timeout(function() {
-        $image.attr('src', ctrl.src);
+    angular.element(function() {
 
-        if(ctrl.animate) {
-           options.numberofcolors = minColors;
-        }
+        maxColors = +ctrl.maxColors || maxColors;
+        minColors = +ctrl.minColors || minColors;
+        step = +ctrl.step || step;
 
-        trace(ctrl.animate? speed : 0, traceCallback);
-    }, 1);
+        $timeout(function() {
+            $image.attr('src', ctrl.src);
+
+            if(ctrl.animate) {
+               options.numberofcolors = minColors;
+            }
+
+            trace(ctrl.animate? speed : 0, traceCallback);
+        }, 1);
+    });
 
 }
 
@@ -62,7 +70,9 @@ var EfImage2Svg = {
     bindings: {
         src: '@',
         animate: '@',
-        maxColors: '@'
+        maxColors: '@',
+        minColors: '@',
+        step: '@'
     }
 };
 
