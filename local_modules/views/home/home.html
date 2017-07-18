@@ -1,5 +1,5 @@
 <div class="main-container">
-    <div class="content" ng-init="$ctrl.forceFlyRow2 = false; $ctrl.forceFlyRow2GtXs = false;">
+    <div class="content" ng-init="$ctrl.forceFlyRow2 = false; $ctrl.forceFlyRow2GtXs = false; $ctrl.didScroll = false;">
         <div class="row-1">
             <div class="col-1">
                 <ef-image2svg src="assets/emanuele-fortunati.png" animate="true" min-colors="7" max-colors="17" step="2"></ef-image2svg>
@@ -11,34 +11,46 @@
         </div>
 
         <div class="row-2">
-            <ef-flying-menu is-open="false" force-flying="$ctrl.forceFlyRow2GtXs" did-fly="$ctrl.forceFlyRow2" scroll-to="row-3"></ef-flying-menu>
+            <ef-flying-menu is-open="false" force-flying="$ctrl.forceFlyRow2GtXs" did-fly="$ctrl.forceFlyRow2" scroll-to="row-3" did-scroll="$ctrl.didScroll"></ef-flying-menu>
         </div>
 
         <div class="row-2-gt-xs">
-            <ef-flying-menu is-open="true" force-flying="$ctrl.forceFlyRow2" did-fly="$ctrl.forceFlyRow2GtXs" scroll-to="row-3"></ef-flying-menu>
+            <ef-flying-menu is-open="true" force-flying="$ctrl.forceFlyRow2" did-fly="$ctrl.forceFlyRow2GtXs" scroll-to="row-3" did-scroll="$ctrl.didScroll"></ef-flying-menu>
         </div>
 
         <div ng-if="$ctrl.forceFlyRow2 || $ctrl.forceFlyRow2GtXs" class="row-3">
-            <div class="ef-chart-row-1">
-                <div class="chart">
-                    <ef-pie-chart height="320" values="['65', '20', '15']" labels="['Front End', 'Process', 'Back End']" insights="[['Angular 1.x / 2+', 'HTML5', 'CSS3 (+ sass and less)', 'Front End Testing', 'Cross-browser/device development'], ['git / svn', 'npm / webpack / gulp', 'Jenkins / Bamboo / Travis CI', 'Agile'], ['Node.js', 'Express.js', 'MongoDb', 'RESTful APIs']]" colors="['#26baff', '#b9bbbc', '#ffd426']"></ef-pie-chart>
-                </div>
-                <div class="chart">
-                    <ef-bar-chart height="320" group-spacing="0.7" y-domain="[0, 100]" values="['100', '80', '75']" labels="['JS + Angular 1, 2, 4', 'HTML5', 'Front End Testing']" insights="['Object Oriented Javascript development and extensive knowledge of main MVC frameworks and libraries. Framework of choice: Angular 4+', 'WebRTC, websockets, audio/video, local storage, webworkers, FileReader', 'Unit and E2E testing with karma + jasmine + protractor']"></ef-bar-chart>
-                </div>
-            </div>
-
-            <div class="ef-chart-row-2">
-                <div class="chart">
-                    <ef-bar-chart 
-                        height="420" 
-                        group-spacing="0.6"
-                        y-domain="[0, 100]" 
-                        values="['90', '80', '80', '70', '60', '75', '77', '60']" 
-                        labels="['CSS3 (+SASS/LESS)', 'Cross-browser/device', 'Web app performances', 'Command Line Tools', 'MEAN Stack', 'Agile', 'Team Leadership', 'CI']" 
-                        insights="['Flex model, responsive layouts, transitions and animations', 'Cross-browser/device development capable to provide a rich user experience on desktop, tablet and mobile browsers. Also some experience on hybrid app development (on Cordova).', 'Web application performances (caching and local storage, web workers, application cache)', 'Versioning, packaging, building and deploying (git, svn, npm, webpack, gulp, browserify, bower)', 'MEAN Stack development (MondoDb + Express.js + Angular + Node.js)', 'I consider myself a good team player and I enjoy working in teams of any size. I have experience working in both Waterfall and Agile (or other continuous delivery-like) environments.', 'Being a leader, to me, means being out there with the team, engaging with the project and the team members, so that the everybody is just naturally motivated.', 'Continuous Integration-driven development (on Jenkins, Bamboo, Travis CI)']"></ef-bar-chart>
-                </div>
-            </div>
+            <md-tabs md-dynamic-height="true" md-swipe-content="true" md-center-tabs="true" md-selected="$ctrl.tabSelected" md-enable-disconnect="true">
+                <md-tab>
+                    <md-tab-label>Core Skills</md-tab-label>
+                    <md-tab-body>
+                        <div class="ef-chart-row-1">
+                            <div class="chart">
+                                <ef-pie-chart draw-on="$ctrl.didScroll && $ctrl.tabSelected==0" height="320" values="['65', '20', '15']" labels="['Front End', 'Process', 'Back End']" insights="[['Angular 1.x / 2+', 'HTML5', 'CSS3 (+ sass and less)', 'Front End Testing', 'Cross-browser/device development'], ['git / svn', 'npm / webpack / gulp', 'Jenkins / Bamboo / Travis CI', 'Agile'], ['Node.js', 'Express.js', 'MongoDb', 'RESTful APIs']]" colors="['#26baff', '#b9bbbc', '#ffd426']"></ef-pie-chart>
+                            </div>
+                            <div class="chart">
+                                <ef-bar-chart draw-on="$ctrl.didScroll && $ctrl.tabSelected==0"  height="320" group-spacing="0.7" y-domain="[0, 100]" values="['100', '80', '75']" labels="['JS + Angular 1, 2, 4', 'HTML5', 'Front End Testing']" insights="['Object Oriented Javascript development and extensive knowledge of main MVC frameworks and libraries. Framework of choice: Angular 4+', 'WebRTC, websockets, audio/video, local storage, webworkers, FileReader', 'Unit and E2E testing with karma + jasmine + protractor']"></ef-bar-chart>
+                            </div>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab>
+                    <md-tab-label>Other Skills</md-tab-label>
+                    <md-tab-body>
+                        <div class="ef-chart-row-2">
+                            <div class="chart">
+                                <ef-bar-chart 
+                                    draw-on="$ctrl.didScroll && $ctrl.tabSelected==1"
+                                    height="320" 
+                                    group-spacing="0.6"
+                                    y-domain="[0, 100]" 
+                                    values="['90', '80', '80', '70', '60', '75', '77', '60']" 
+                                    labels="['CSS3 (+SASS/LESS)', 'Cross-browser/device', 'Web app performances', 'Command Line Tools', 'MEAN Stack', 'Agile', 'Team Leadership', 'CI']" 
+                                    insights="['Flex model, responsive layouts, transitions and animations', 'Cross-browser/device development capable to provide a rich user experience on desktop, tablet and mobile browsers. Also some experience on hybrid app development (on Cordova).', 'Web application performances (caching and local storage, web workers, application cache)', 'Versioning, packaging, building and deploying (git, svn, npm, webpack, gulp, browserify, bower)', 'MEAN Stack development (MondoDb + Express.js + Angular + Node.js)', 'I consider myself a good team player and I enjoy working in teams of any size. I have experience working in both Waterfall and Agile (or other continuous delivery-like) environments.', 'Being a leader, to me, means being out there with the team, engaging with the project and the team members, so that the everybody is just naturally motivated.', 'Continuous Integration-driven development (on Jenkins, Bamboo, Travis CI)']"></ef-bar-chart>
+                            </div>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
 
             <div class="ef-insigths-highlighter" ef-insigths-highlighter>
                 <span>This page is powered by </span>

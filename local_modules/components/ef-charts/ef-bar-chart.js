@@ -9,6 +9,14 @@ var EfBarChartController = function($scope, $element, $attrs, $timeout) {
 
     ctrl.api = undefined;
 
+    var draw = function(noDelay) {
+        $timeout(function() {
+            for(var i = 0; i < ctrl.values.length; i++) {
+                ctrl.data[0].values[i].value = ctrl.values[i];
+            }
+        }, noDelay === true? 0 : (animationDuration + 10));
+    }
+
     angular.element(function() {
 
         ctrl.options = {
@@ -41,7 +49,7 @@ var EfBarChartController = function($scope, $element, $attrs, $timeout) {
 
                         var insights = '<tr><td colspan="2" class="key">' + d.data.insights + '</td></tr>';
 
-                        return '<table><tbody><tr><td class="legend-color-guide"></td><td class="value">' + d.data.label + '</td></tr>' + insights + '</tbody></table>';
+                        return '<table><tbody><tr><td class="legend-color-guide"></td><td>' + d.data.label + '</td></tr>' + insights + '</tbody></table>';
                     },
                     classes: ['ef-charts-tooltip']
                 }
@@ -67,13 +75,15 @@ var EfBarChartController = function($scope, $element, $attrs, $timeout) {
 
         invertedValues.reverse();
 
-        $timeout(function() {
-            for(var i = 0; i < ctrl.values.length; i++) {
-                ctrl.data[0].values[i].value = ctrl.values[i];
-            }
-        }, animationDuration + 10);
+        draw(false);
 
     });
+
+    ctrl.$onChanges = function(changes) {
+        if(changes.drawOn && changes.drawOn.currentValue === true && changes.drawOn.previousValue !== true) {
+            draw(false);
+        }
+    }    
 
 }
 
@@ -88,7 +98,8 @@ var EfBarChart = {
         values: '<',
         labels: '<',
         insights: '<',
-        groupSpacing: '<'
+        groupSpacing: '<',
+        drawOn: '<'
     }
 };
 

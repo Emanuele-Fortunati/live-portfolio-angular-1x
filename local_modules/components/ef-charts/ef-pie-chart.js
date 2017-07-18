@@ -9,6 +9,14 @@ var EfPieChartController = function($scope, $element, $attrs, $timeout) {
 
     ctrl.api = undefined;
 
+    var draw = function(noDelay) {
+        $timeout(function() {
+            for(var i = 0; i < ctrl.values.length; i++) {
+                ctrl.data[i].y = ctrl.values[i];
+            }
+        }, noDelay === true? 0 : (animationDuration + 10));
+    };
+
     angular.element(function() {
 
         ctrl.options = {
@@ -34,7 +42,7 @@ var EfPieChartController = function($scope, $element, $attrs, $timeout) {
 
                         var insights = '<tr><td colspan="2" class="key">' + d.data.insights.join('</td></tr><tr><td colspan="2" class="key">') + '</td></tr>';
 
-                        return '<table><tbody><tr><td class="legend-color-guide"><div style="background-color: ' + d.color + ';"></div></td><td class="value">' + d.data.key + '</td></tr>' + insights + '</tbody></table>';
+                        return '<table><tbody><tr><td class="legend-color-guide"><div style="background-color: ' + d.color + ';"></div></td><td>' + d.data.key + '</td></tr>' + insights + '</tbody></table>';
                     }
                 },
                 dispatch: {
@@ -80,28 +88,15 @@ var EfPieChartController = function($scope, $element, $attrs, $timeout) {
 
         invertedValues.reverse();
 
-/*
-        $timeout(function() {
-            for(var i = 0; i < ctrl.values.length; i++) {
-                ctrl.data[i].y = invertedValues[i]
-            }
-
-            $timeout(function() {
-                for(var i = 0; i < ctrl.values.length; i++) {
-                    ctrl.data[i].y = ctrl.values[i];
-                }
-            }, animationDuration + 10);
-
-        }, 150);
-*/
-
-        $timeout(function() {
-            for(var i = 0; i < ctrl.values.length; i++) {
-                ctrl.data[i].y = ctrl.values[i];
-            }
-        }, animationDuration + 10);
+        draw(false);
 
     });
+
+    ctrl.$onChanges = function(changes) {
+        if(changes.drawOn && changes.drawOn.currentValue === true && changes.drawOn.previousValue !== true) {
+            draw(false);
+        }
+    }  
 
 }
 
@@ -116,7 +111,8 @@ var EfPieChart = {
         labels: '<',
         insights: '<',
         colors: '<',
-        height: '<'
+        height: '<',
+        drawOn: '<'
     }
 };
 

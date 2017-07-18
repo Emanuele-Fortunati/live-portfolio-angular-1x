@@ -106,3 +106,7 @@
 .ef-flying-menu-hamburger .static-menu-buttons ef-button, .ef-flying-menu-hamburger .static-menu-buttons ef-button .ef-button, .ef-flying-menu-hamburger .static-menu-buttons ef-button .ef-button .md-button {
     display: block;
 }
+
+.static-menu-buttons .ef-button:hover {
+    background: #fff;
+}

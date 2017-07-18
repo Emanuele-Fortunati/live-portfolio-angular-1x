@@ -49,6 +49,13 @@
     width: 100%;
 }
 
+.row-3 .ef-chart-row-1 {
+    min-height: 640px;
+}
+.row-3 .ef-chart-row-2 {
+    min-height: 320px;
+}
+
 @media screen and (min-width: 481px) {
     .col-1 img {
         width: 100%;
@@ -140,6 +147,9 @@
     .col-2 {
         margin-top: 15%;
     }
+    .row-3 .ef-chart-row-1 {
+        min-height: 320px;
+    }
     .row-3 .ef-chart-row-1 div.chart {
         width: 50%;
         float: left;
@@ -174,4 +184,19 @@
 }
 .row-3 .ef-chart-row-2 div.chart ef-bar-chart svg g.nv-bar:nth-child(5) rect, .row-3 .ef-chart-row-2 div.chart ef-bar-chart svg g.nv-bar:nth-child(8) rect {
     fill: #b9bbbc;
+}
+
+.nvd3 .nv-axis .zero line {
+    stroke-opacity: 0;
+}
+
+.nvd3 .nv-axis line {
+    display: none;
+}
+
+.nvd3 text {
+    font-family: 'Bellefair', serif;
+    letter-spacing: 1px;
+    font-size: 13px;
+    fill: #000;
 }

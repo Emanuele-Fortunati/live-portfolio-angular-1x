@@ -2,9 +2,6 @@
     display: inline-block;
     max-width: 175px;
 }
-.ef-button:hover {
-    background: #fff;
-}
 .ef-button .md-button {
     transition:0.2s ease-in-out all;
     min-width: 0;

@@ -50,6 +50,31 @@ md-dialog {
     background-position: bottom right;
 }
 
+md-tabs .md-tab.md-active {
+    color: #26baff;
+}
+
+md-tabs md-ink-bar {
+    color:#26baff;
+    background-color:#26baff;
+}
+
+md-tabs .md-tab:active .md-ripple-container {
+    background-color: rgba(38, 186, 255, .1);
+}
+
+md-tabs .md-tab .md-ripple-container .md-ripple {
+    background: #26baff;
+    border-color: #26baff;
+}
+
+.nvtooltip {
+    font-family: 'Bellefair', serif;
+    letter-spacing: 1px;
+    font-size: 13px;
+    background-color: rgba(255,255,255, 0.9);
+}
+
 
 /* CSS Loader */
 .loader {

@@ -156,7 +156,7 @@ var EfFlyingButtonController = function($scope, $element, $attrs, $timeout, $mdD
 
             if(angular.element($source).hasClass('visible')) {
                 jQuery($source).flyTo(destination,  0, 0, speed, delay, invisibleMove);
-                delay += 80;
+                delay += invisibleMove === true? 0 : 80;
             }
 
         }
@@ -169,9 +169,14 @@ var EfFlyingButtonController = function($scope, $element, $attrs, $timeout, $mdD
             $menuToggle.find('input').attr('checked', false);
             ctrl.didFly = true;
 
-            ctrl.scrollToSection(ctrl.scrollTo);
+            try {
+                ctrl.scrollToSection(ctrl.scrollTo, function() {
+                    ctrl.didScroll = true;
+                });
+            } catch(e) {}
+            
 
-        }, delay + 500);
+        }, delay + (invisibleMove === true? 0 : 500));
 
     }
 
@@ -191,11 +196,17 @@ var EfFlyingButtonController = function($scope, $element, $attrs, $timeout, $mdD
         });        
     }
 
-    ctrl.scrollToSection = function(section) {
-        try {
-            $document.scrollToElementAnimated(angular.element(document.getElementsByClassName(section)));
-        } catch(e) {}
-        
+    ctrl.scrollToSection = function(section, cb) {
+        $timeout(function() {
+            try {
+                $document.scrollToElementAnimated(angular.element(document.getElementsByClassName(section)))
+                .then(function() {
+                    if(typeof cb == 'function') {
+                        cb();
+                    }
+                });
+            } catch(e) {}
+        }, 1);
     }
 
     // all menus has to behave same way
@@ -217,6 +228,7 @@ var EfFlyingButton = {
     bindings: {
         isOpen: '<',
         didFly: '=',
+        didScroll: '=',
         forceFlying: '<',
         scrollTo: '@'
     }
