@@ -67,7 +67,7 @@ jQuery.fx.step.path = function(fx) {
     fx.elem.style.left = css.left;
 };
 
-jQuery.fn.flyTo = function(destination, topInc, leftInc, speed, delay, callback) {
+jQuery.fn.flyTo = function(destination, topInc, leftInc, speed, delay, invisibleMove) {
 
     var $this = this,
         $destination = jQuery(destination),
@@ -96,7 +96,8 @@ jQuery.fn.flyTo = function(destination, topInc, leftInc, speed, delay, callback)
         $new.css({
             position: 'absolute',
             left: coord.start.x + 'px',
-            top: coord.start.y + 'px'
+            top: coord.start.y + 'px',
+            display: invisibleMove === true? 'none': 'block'
         }).appendTo(document.body).delay(delay).animate({
                 path : new bezier(coord)
             }, {
@@ -146,7 +147,7 @@ var EfFlyingButtonController = function($scope, $element, $attrs, $timeout, $mdD
         ctrl.buttonsVisible = !ctrl.buttonsVisible;
     };
 
-    ctrl.learnMore = function() {        
+    ctrl.learnMore = function(invisibleMove) {        
         var delay = 0,
             $buttons = $element.find('ef-button');
 
@@ -154,7 +155,7 @@ var EfFlyingButtonController = function($scope, $element, $attrs, $timeout, $mdD
             var $source = $buttons[i];
 
             if(angular.element($source).hasClass('visible')) {
-                jQuery($source).flyTo(destination,  0, 0, speed, delay);
+                jQuery($source).flyTo(destination,  0, 0, speed, delay, invisibleMove);
                 delay += 80;
             }
 
@@ -201,7 +202,7 @@ var EfFlyingButtonController = function($scope, $element, $attrs, $timeout, $mdD
     ctrl.$onChanges = function(changes) {
         if(changes.forceFlying && changes.forceFlying.currentValue === true) {
             if(!ctrl.didFly) {
-                this.learnMore();
+                this.learnMore(true);
             }
         }
     }
