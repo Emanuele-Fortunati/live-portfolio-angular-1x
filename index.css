@@ -7,7 +7,10 @@ html, body {
     max-height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #fff;  
+}
 
+body {
     font-family: 'Bellefair', serif;
     letter-spacing: 1px;
     font-size: 16px;
@@ -16,15 +19,35 @@ html, body {
     background-image: url('assets/background-vectors.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom right;
-
-    background-color: #fff;
-
+    background-position: bottom right;  
 }
 
 a, a:link, a:active, a:hover {
     color: #26baff;
     text-decoration: none;
+}
+
+hr { 
+    border: 0; 
+    height: 1px; 
+}
+hr.blue {
+    background-image: -webkit-linear-gradient(left, #f0f0f0, #26baff, #f0f0f0);
+    background-image: -moz-linear-gradient(left, #f0f0f0, #26baff, #f0f0f0);
+    background-image: -ms-linear-gradient(left, #f0f0f0, #26baff, #f0f0f0);
+    background-image: -o-linear-gradient(left, #f0f0f0, #26baff, #f0f0f0); 
+}
+hr.yellow {
+    background-image: -webkit-linear-gradient(left, #f0f0f0, #ffd426, #f0f0f0);
+    background-image: -moz-linear-gradient(left, #f0f0f0, #ffd426, #f0f0f0);
+    background-image: -ms-linear-gradient(left, #f0f0f0, #ffd426, #f0f0f0);
+    background-image: -o-linear-gradient(left, #f0f0f0, #ffd426, #f0f0f0); 
+}
+hr.grey {
+    background-image: -webkit-linear-gradient(left, #f0f0f0, #b9bbbc, #f0f0f0);
+    background-image: -moz-linear-gradient(left, #f0f0f0, #b9bbbc, #f0f0f0);
+    background-image: -ms-linear-gradient(left, #f0f0f0, #b9bbbc, #f0f0f0);
+    background-image: -o-linear-gradient(left, #f0f0f0, #b9bbbc, #f0f0f0); 
 }
 
 .blue-color {
@@ -68,6 +91,16 @@ md-tabs .md-tab .md-ripple-container .md-ripple {
     border-color: #26baff;
 }
 
+.md-button:not([disabled]):hover {
+    background-color: rgba(50, 155, 255, .3);
+    color: #000;
+}
+
+.md-button:not([disabled]):hover md-icon svg {
+    fill: rgba(38, 186, 255, .9);
+}
+
+
 .nvtooltip {
     font-family: 'Bellefair', serif;
     letter-spacing: 1px;
@@ -75,6 +108,21 @@ md-tabs .md-tab .md-ripple-container .md-ripple {
     background-color: rgba(255,255,255, 0.9);
 }
 
+/* pulse  */
+.pulse {
+    border: 3px solid #26baff;
+    border-radius: 30px;
+    height: 48px;
+    width: 48px;
+    animation: pulsate 1s ease-out;
+    animation-iteration-count: infinite; 
+    opacity: 0;
+}
+@keyframes pulsate {
+    0% { transform: scale(0.1, 0.1); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: scale(1.2, 1.2); opacity: 0; }
+}
 
 /* CSS Loader */
 .loader {

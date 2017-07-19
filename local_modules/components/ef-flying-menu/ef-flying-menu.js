@@ -204,6 +204,14 @@ var EfFlyingButtonController = function($scope, $element, $attrs, $timeout, $mdD
                     if(typeof cb == 'function') {
                         cb();
                     }
+
+                    // remove background as we don't need it anymore
+                    angular.element(document.body).css('background-image', 'none');
+
+                    ctrl.scrolledTo = section;
+                    $timeout(function() {
+                        ctrl.scrolledTo = '_' + section;
+                    }, 2000);
                 });
             } catch(e) {}
         }, 1);
@@ -228,9 +236,10 @@ var EfFlyingButton = {
     bindings: {
         isOpen: '<',
         didFly: '=',
-        didScroll: '=',
         forceFlying: '<',
-        scrollTo: '@'
+        didScroll: '=',
+        scrollTo: '@',
+        scrolledTo: '='
     }
 };
 

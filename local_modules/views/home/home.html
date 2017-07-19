@@ -1,5 +1,5 @@
-<div class="main-container">
-    <div class="content" ng-init="$ctrl.forceFlyRow2 = false; $ctrl.forceFlyRow2GtXs = false; $ctrl.didScroll = false;">
+<div class="main-container section-1" ng-class="{'shared': $ctrl.didScroll == true}">
+    <div class="content" ng-init="$ctrl.forceFlyRow2 = false; $ctrl.forceFlyRow2GtXs = false; $ctrl.didScroll = false; $ctrl.currenctSection = 'home';">
         <div class="row-1">
             <div class="col-1">
                 <ef-image2svg src="assets/emanuele-fortunati.png" animate="true" min-colors="7" max-colors="17" step="2"></ef-image2svg>
@@ -11,13 +11,20 @@
         </div>
 
         <div class="row-2">
-            <ef-flying-menu is-open="false" force-flying="$ctrl.forceFlyRow2GtXs" did-fly="$ctrl.forceFlyRow2" scroll-to="row-3" did-scroll="$ctrl.didScroll"></ef-flying-menu>
+            <ef-flying-menu is-open="false" force-flying="$ctrl.forceFlyRow2GtXs" did-fly="$ctrl.forceFlyRow2" scroll-to="row-3" did-scroll="$ctrl.didScroll" scrolled-to="$ctrl.currenctSection"></ef-flying-menu>
         </div>
 
         <div class="row-2-gt-xs">
-            <ef-flying-menu is-open="true" force-flying="$ctrl.forceFlyRow2" did-fly="$ctrl.forceFlyRow2GtXs" scroll-to="row-3" did-scroll="$ctrl.didScroll"></ef-flying-menu>
+            <ef-flying-menu is-open="true" force-flying="$ctrl.forceFlyRow2" did-fly="$ctrl.forceFlyRow2GtXs" scroll-to="row-3" did-scroll="$ctrl.didScroll" scrolled-to="$ctrl.currenctSection"></ef-flying-menu>
         </div>
 
+    </div>
+</div>
+<div class="main-container section-2">
+    <div ng-if="$ctrl.forceFlyRow2 || $ctrl.forceFlyRow2GtXs">
+        <hr class="yellow">
+    </div>
+    <div class="content">
         <div ng-if="$ctrl.forceFlyRow2 || $ctrl.forceFlyRow2GtXs" class="row-3">
             <md-tabs md-dynamic-height="true" md-swipe-content="true" md-center-tabs="true" md-selected="$ctrl.tabSelected" md-enable-disconnect="true">
                 <md-tab>
@@ -34,7 +41,7 @@
                     </md-tab-body>
                 </md-tab>
                 <md-tab>
-                    <md-tab-label>Other Skills</md-tab-label>
+                    <md-tab-label>Other Skills <div ng-class="{'pulse': $ctrl.currenctSection == 'row-3'}"></div></md-tab-label>
                     <md-tab-body>
                         <div class="ef-chart-row-2">
                             <div class="chart">
@@ -51,68 +58,71 @@
                     </md-tab-body>
                 </md-tab>
             </md-tabs>
-
-            <div class="ef-insigths-highlighter" ef-insigths-highlighter>
-                <span>This page is powered by </span>
-                <span class="highlighter">Angular.js</span>
-                <span>.<br />You can find the source code on my <a href="https://github.com/Emanuele-Fortunati/live-portfolio-angular-1x" title="Emanuele Fortunati's portfolio: source code on Github" target="_blank">Github</a>.
-                </span>
-                <div class="insigths">
-                    <md-list flex>
-                        <md-subheader class="md-no-sticky">Stack</md-subheader>
-                        <md-list-item class="md-3-line" ng-click="null">
-                            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
-                            <div class="md-list-item-text" layout="column">
-                                <h3>Angular 1.6.x</h3>
-                                <p>Made with components, built on Angular.js</p>
-                            </div>
-                        </md-list-item>
-                        <md-list-item class="md-3-line" ng-click="null">
-                            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
-                            <div class="md-list-item-text" layout="column">
-                                <h3>Angular Material</h3>
-                                <h4>Flex layout, web components</h4>
-                            </div>
-                        </md-list-item>
-                        <md-list-item class="md-3-line" ng-click="null">
-                            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
-                            <div class="md-list-item-text" layout="column">
-                                <h3>D3.js</h3>
-                                <h4>All charts are made on D3.js, via ng-nvd3</h4>
-                            </div>
-                        </md-list-item>
-                        <md-list-item class="md-3-line" ng-click="null">
-                            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
-                            <div class="md-list-item-text" layout="column">
-                                <h3>NPM</h3>
-                                <h4>NPM is used to run and build the app</h4>
-                            </div>
-                        </md-list-item>
-                        <md-list-item class="md-3-line" ng-click="null">
-                            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
-                            <div class="md-list-item-text" layout="column">
-                                <h3>Browserify</h3>
-                                <h4>Modulare structure powered by Browserify (+watchify)</h4>
-                            </div>
-                        </md-list-item>
-                        <md-list-item class="md-3-line" ng-click="null">
-                            <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
-                            <div class="md-list-item-text" layout="column">
-                                <h3>Imagetracer.js</h3>
-                                <h4>The "stencil" effect on my portrait is made with Imagetracer</h4>
-                            </div>
-                        </md-list-item>
-                    </div>
-                    </md-list-item>
-                </div>
-
-            </div>
-
         </div>
     </div>
-
-    <!--
-        <p>Add "play" button to allow playing real-time with the face</p>
-        <p>"Use your own picture" to open an overlay that allows to upload a pict (directly into browser) - in future</p>
-    -->
+</div>
+<div class="main-container section-3">
+    <div ng-if="$ctrl.forceFlyRow2 || $ctrl.forceFlyRow2GtXs">
+        <hr class="grey">
+    </div>
+    <div class="content" ng-if="$ctrl.forceFlyRow2 || $ctrl.forceFlyRow2GtXs">
+        <div class="ef-insigths-highlighter" ef-insigths-highlighter>
+            <span>This page is powered by </span>
+            <span class="highlighter">
+                Angular.js
+                <md-tooltip md-direction="right">view full stack</md-tooltip>
+            </span>
+            <span>.<br />You can find the source code on my <a href="https://github.com/Emanuele-Fortunati/live-portfolio-angular-1x" title="Emanuele Fortunati's portfolio: source code on Github" target="_blank">Github</a>.
+            </span>
+            <div ng-class="{'pulse': $ctrl.currenctSection == 'ef-insigths-highlighter'}"></div>
+            <div class="insigths">
+                <md-list flex>
+                    <md-subheader class="md-no-sticky"></md-subheader>
+                    <md-list-item class="md-3-line" ng-click="null">
+                        <img src="assets/angularjs.svg" class="md-avatar" alt="AngularJs logo" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Angular 1.6.x</h3>
+                            <p>Made with components, built on Angular.js</p>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-3-line" ng-click="null">
+                        <img src="assets/angular-material.svg" class="md-avatar" alt="Angular Material logo" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Angular Material</h3>
+                            <h4>Flex layout, web components</h4>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-3-line" ng-click="null">
+                        <img src="assets/d3.png" class="md-avatar" alt="D3.js logo" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>D3.js</h3>
+                            <h4>All charts are made on D3.js, via ng-nvd3</h4>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-3-line" ng-click="null">
+                        <img src="assets/npm.svg" class="md-avatar" alt="NPM logo" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>NPM</h3>
+                            <h4>NPM is used to run and build the app</h4>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-3-line" ng-click="null">
+                        <img src="assets/browserify.png" class="md-avatar" alt="Browserify logo" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Browserify</h3>
+                            <h4>Modulare structure powered by Browserify (+watchify)</h4>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-3-line" ng-click="null">
+                        <img src="assets/github.svg" class="md-avatar" alt="Github logo" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Imagetracer.js</h3>
+                            <h4>The "stencil" effect on my portrait is made with Imagetracer</h4>
+                        </div>
+                    </md-list-item>
+                </div>
+                </md-list-item>
+            </div>
+        </div>        
+    </div>
 </div>

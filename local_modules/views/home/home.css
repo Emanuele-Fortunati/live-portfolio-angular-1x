@@ -4,14 +4,42 @@
 @import '../../components/ef-contact/ef-contact.css';
 
 .main-container {
-    height: 100%;
-    max-height: 100%;
+    /* height: 100%;
+    max-height: 100%; */
     width: 100%;
+}
+ 
+.main-container.section-1.shared {
+    background-image: url('assets/background-vectors.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100px;
+}
+ .main-container.section-2 {
+    background: #eee;
+    /* background: linear-gradient(rgba(255,212,38, 0.3), #fff); */
+    /* background: linear-gradient(rgba(38,186,255, 0.3), #fff); */
+    background: linear-gradient(rgba(204,204,204, 0.3), #fff);
+}
+
+.main-container.section-3 {
+    background: rgba(185,187,188, .3);
 }
 
 .content {
     max-width: 890px;
     margin: 0 auto;
+}
+
+.main-container.section-2 .content {
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+.main-container.section-3 .content {
+    padding: 25px 0 25px 0;
+    font-size: 14px;
+    text-align: center;
 }
 
 .row-1 {
@@ -199,4 +227,38 @@
     letter-spacing: 1px;
     font-size: 13px;
     fill: #000;
+}
+
+.row-3 .pulse {
+    margin-top: -28px;
+    margin-left: 26px;
+    width: 25px;
+    height: 25px;
+}
+
+.ef-insigths-highlighter .pulse {
+    margin-top: -56px;
+    margin-left: 55%;
+}
+
+.section-3 .md-button:not([disabled]):hover {
+    background-color: rgba(0, 0, 0, 0);
+    cursor: default;
+}
+
+.section-3 .insigths {
+    background: rgba(185,187,188, .1);
+    margin-top: 20px;
+}
+
+.section-3 .insigths md-list {
+    padding-top: 0;
+}
+
+.section-3 .insigths md-list .md-subheader {
+    background: #ffd426;
+}
+
+.section-3 .insigths .md-subheader .md-subheader-inner {
+    padding: 1px;
 }
