@@ -9,13 +9,17 @@
     "angular-nvd3": "^1.0.9",
     "angular-scroll": "^1.0.2",
     "browserify": "^14.4.0",
+    "clean-css-cli": "^4.1.6",
     "copyfiles": "^1.2.0",
     "css-combine": "^1.0.0",
     "d3": "^3.5.17",
+    "htmlclean-cli": "^1.0.4",
     "imagetracerjs": "^1.2.0",
     "jquery": "^3.2.1",
     "mkdir": "^0.0.2",
-    "rimraf": "^2.6.1"
+    "rename-cli": "^3.0.0",
+    "rimraf": "^2.6.1",
+    "uglifyify": "^4.0.2"
   },
   "devDependencies": {
     "opener": "^1.4.3",
@@ -26,19 +30,24 @@
     "parallelshell": "^2.0.0"
   },
   "scripts": {
-    "clean": "rimraf -r dist && rimraf -r dev",
-    "serve": "http-server -p 1313 dev/",
-    "live-reload": "live-reload --port 1717 dev/",
-    "watch:js": "NODE_PATH='./local_modules' watchify --entry index.js --outfile dev/index.js",
+    "clean": "rimraf -r dist",
+    "serve": "http-server -p 1313 dist/",
+    "live-reload": "live-reload --port 1717 dist/",
+    "watch:js": "NODE_PATH='./local_modules' watchify --entry index.js --outfile dist/index.js",
     "watch:html": "watch-run -p 'index.html,local_modules/**/*.html' 'npm run copy:html'",
     "watch:css": "watch-run -p 'index.css,local_modules/**/*.css' 'npm run copy:css'",
     "watch": "parallelshell 'npm run watch:js' 'npm run watch:html' 'npm run watch:css'",
-    "copy:html": "copyfiles -f index.html local_modules/**/*.html dev",
-    "copy:css": "css-combine index.css > dev/index.css",
-    "copy:assets": "copyfiles -f assets/**/*.* dev/assets",
+    "copy:html": "copyfiles -f index.html local_modules/**/*.html dist",
+    "copy:css": "css-combine index.css > dist/index.css",
+    "copy:assets": "copyfiles -f assets/**/*.* dist/assets",
     "copy": "npm run copy:css && npm run copy:html && npm run copy:assets",
+    "minify": "cleancss -o dist/index.css dist/index.css & htmlclean dist/*.html",
     "open:dev": "opener http://localhost:1313",
-    "predev": "npm run clean && mkdir dev && npm run copy",
-    "dev": "npm run open:dev -s & parallelshell 'npm run live-reload -s' 'npm run serve -s' 'npm run watch -s'"
+    "predev": "npm run clean && mkdir dist && npm run copy",
+    "dev": "npm run open:dev -s & parallelshell 'npm run live-reload -s' 'npm run serve -s' 'npm run watch -s'",
+    "predist": "npm run clean && mkdir dist && npm run copy",
+    "dist": "NODE_PATH='./local_modules' browserify -t [ uglifyify ] --entry index.js --outfile dist/index.js & npm run minify",
+    "postdist": "rename -r '(?<name>[A-Za-z0-9-]+).min' --noindex dist/*.min.html '{{name}}' --force",
+    "testdist": "npm run open:dev & http-server -p 1313 dist/"
   }
 }
